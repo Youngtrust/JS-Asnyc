@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8" />
+    <title>Tool bar</title>
+    <link data-require="normalize@*" data-semver="3.0.1" rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.1/normalize.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <style>
+      .progress-bar {
+        height: 20px;
+        background: red;
+        width: 0px;
+        text-align: center;       
+        margin-top: 10px;
+      }
+      
+      .pp{
+        width : 600px;
+        background-color: #e0e0e0;
+      }
+    </style>
+  </head>
+  <body>
+
+    <h1>JavaScript Progress Bar</h1>
+    <div class="pp"></div>
+    <br>
+    <button id="add" onclick="clickme()">Add</button>
+
+  </body>
+  <script>
+    var container = $('div.pp');
+
+    /* Set Function */
+    function clickme() {
+      /* Set Progess Bar */
+      var progressBar = $('<div class="progress-bar"/>');
+        
+      /* Append Progress Bar to Container and Queue Animation */
+      container.append(progressBar).queue('example', function() {
+        /* Animate Progress Bar */
+        progressBar.animate({ width: '100%' }, 3000, function() {
+          /* Run Next Queue */
+          container.dequeue('example');
+        });
+      });
+    
+      /* Fall Back if Nothing is Animating */
+      if(!progressBar.prevAll(':animated').length) {
+        container.dequeue('example');
+      }
+    }
+  </script>
+</html>
